@@ -4,9 +4,11 @@ const robots = {
 	text: require('./robots/text.js')
 }
 // Função que irá agrupar todas as opções
-function start() {
+async function start() {
 	// objeto que irá guardar todo o conteúdo
-	const content = {}
+	const content = {
+		maximumSentences: 7
+	}
 
 	//Termo
 	content.searchTerm = askAndReturnSearchTerm()
@@ -14,12 +16,11 @@ function start() {
 	content.prefix = askAndReturnPrefix()
 
 	//robots.userInput(content)
-	robots.text(content)
+	await robots.text(content)
 
 	function askAndReturnSearchTerm(){
 		//return 'EXEMPLO DE TERMO'
 		//usar readline-sync para pegar input do isuario
-
 		//question: método da biblioteca readline-sync que espera uma string
 		return readline.question('Informe um termo para busca na Wikipedia: ')
 	}
@@ -34,7 +35,8 @@ function start() {
 		return selectedPrefixText
 	}
 
-	console.log(content)
+	//console.log(content)
+	console.log(JSON.stringify(content, null, 4))
 }
 
 start()
